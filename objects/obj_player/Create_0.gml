@@ -40,6 +40,12 @@ teto = 0;
 colizions = [obj_chao];
 colizions_dano = [obj_espinho];
 
+//transicao de sprites
+transicao_pulo_pra_queda = [spr_player_jump_fall, spr_player_fall];
+
+transicao_atual = transicao_pulo_pra_queda;
+spr_atual = 0;
+
 //iniciando efeitos
 inicia_efeito_mola();
 inicia_efeito_branco();
@@ -63,6 +69,21 @@ checa_colizao = function()
     //paredes
     parede_dir = place_meeting(x + 1, y, colizions);
     parede_esq = place_meeting(x - 1, y, colizions);
+}
+
+transicao_de_sprites = function()
+{
+    troca_sprite(transicao_atual[spr_atual]);
+    
+    if (end_animation() && spr_atual < array_length(transicao_atual) - 1)
+    {
+        spr_atual += 1;
+    }
+}
+
+mudando_transicao_de_sprites = function(_array)
+{
+    transicao_atual = _array;
 }
 
 coyote_time = function()
@@ -245,6 +266,8 @@ invencible_time = function()
 
 estado_parado = function()
 {
+    troca_sprite(spr_player_idle);
+    
     movimento();
     checa_dir();
     
@@ -262,6 +285,8 @@ estado_parado = function()
     if (!chao)
     {
         estado = estado_caindo;
+        
+        spr_atual = 0;
     }
     
     if (dano && !invencivel)
@@ -276,6 +301,8 @@ estado_parado = function()
 
 estado_andando = function()
 {
+    troca_sprite(spr_player_walk);
+    
     movimento();
     checa_dir();
     
@@ -293,6 +320,8 @@ estado_andando = function()
     if (!chao)
     {
         estado = estado_caindo;
+        
+        spr_atual = 0;
     }
     
     if (dano && !invencivel)
@@ -307,6 +336,8 @@ estado_andando = function()
 
 estado_pulando = function()
 {
+    troca_sprite(spr_player_jump);
+    
     movimento();
     checa_dir();
     
@@ -326,6 +357,8 @@ estado_pulando = function()
     if (velv >= 0)
     {
         estado = estado_caindo;
+        
+        spr_atual = 0;
     }
     
     if (dano && !invencivel)
@@ -340,6 +373,8 @@ estado_pulando = function()
 
 estado_caindo = function()
 {
+    transicao_de_sprites();
+    
     movimento();
     checa_dir();
     
@@ -380,6 +415,8 @@ estado_caindo = function()
 //dezlizando
 estado_desliza_parede = function()
 {
+    troca_sprite(spr_player_wall_slide);
+    
     movimento();
     
     grav = 0;
@@ -423,6 +460,8 @@ estado_desliza_parede = function()
 //pulando pro wall jump
 estado_wall_jump = function()
 {
+    troca_sprite(spr_player_wall_jump);
+    
     movimento();
     checa_dir();
     
@@ -462,6 +501,8 @@ estado_wall_jump = function()
 
 estado_dano = function()
 {
+    troca_sprite(spr_player_wall_jump);
+    
     grav_op();
     
     if (vidas <= 1 && morre_uma_vez)
