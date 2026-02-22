@@ -1,11 +1,19 @@
+//transicao
+global.transicao = false;
+
 //Chame essa função para criar a transição
 function cria_transicao_inicia(_destino = noone)
 {
+    //falando que a transicao começou
+    global.transicao = true;
+    
     //se a room n for valida
     if (!room_exists(_destino)) 
     {
         //mostre uma mensagem
         show_message("defina um destino");
+        //pode fazer transicao
+        global.transicao = false;
         //saia da funçao
         return;
     }
@@ -44,5 +52,6 @@ function destruindo_layer_transicao()
     {
         //destroi ela
         layer_destroy("transicao");
+        global.transicao = false;
     }
 }

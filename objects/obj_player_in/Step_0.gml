@@ -24,6 +24,9 @@ coyote_time();
 //checando as minhas colizoes
 checa_colizao();
 
+//pegando fragmento
+pega_frag();
+
 //tempo invencivel
 invencible_time();
 

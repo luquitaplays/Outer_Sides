@@ -10,7 +10,7 @@ else
     image_alpha = lerp(image_alpha, 1, 0.1);
 }
 
-if (not_playable) exit;
+if (not_playable) exit; // se ele n for jogavel n jogue
 
 //pegando imputs
 pega_imputs();
@@ -23,6 +23,9 @@ coyote_time();
 
 //checando as minhas colizoes
 checa_colizao();
+
+//pegando fragmento
+pega_frag();
 
 //tempo invencivel
 invencible_time();

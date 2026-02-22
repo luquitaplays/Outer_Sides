@@ -20,10 +20,10 @@ grav = mc_grav;
 
 max_velv = 12;
 
-morre_uma_vez = true;
-
 max_vidas = 2;
 global.vidas = max_vidas;
+
+global.normal = true;
 
 invencivel = false;
 espera_invencivel = 60;
@@ -36,7 +36,8 @@ corner_limite = 6;
 chao = 0;
 teto = 0;
 
-colizions = [obj_chao, obj_chao_menor];
+var _tile = layer_tilemap_get_id("tl_chao");
+colizions = [obj_chao, obj_chao_menor, _tile];
 colizions_dano = [obj_espinho];
 
 //transicao de sprites
@@ -45,10 +46,18 @@ transicao_pulo_pra_queda = [spr_player_jump_fall, spr_player_fall];
 transicao_atual = transicao_pulo_pra_queda;
 spr_atual = 0;
 
+//iniciando efeitos scrible
+scribble_anim_wave(0.5, 1.5, 0.15);
+scribble_anim_wheel(0.2, 1.2, 0.15);
+scribble_anim_jitter(0.8, 1.2, 0.1);
+scribble_anim_pulse(0.3, 0.1);
+scribble_anim_shake(1, 0.1);
+scribble_anim_wobble(30, 0.2);
+
 //se ele for o player n jogavel
 if (not_playable)
 {
-    sprite_index = spr_player_walk;
+    sprite_index = spr;
 }
 else //se ele for o player normal
 {
@@ -62,8 +71,11 @@ pega_imputs = function()
     right = keyboard_check(vk_right) || keyboard_check(ord("D"));
     left = keyboard_check(vk_left) || keyboard_check(ord("A"));
     
-    jump = keyboard_check_pressed(vk_space);
-    jump_r = keyboard_check_released(vk_space);
+    if (room != rm_cut_cene) // se eu estiver na cut cene eu n pulo
+    {
+        jump = keyboard_check_pressed(vk_space);
+        jump_r = keyboard_check_released(vk_space);
+    }
 }
 
 checa_colizao = function()
@@ -269,7 +281,21 @@ invencible_time = function()
     }
 }
 
+pega_frag = function()
+{
+    var _frag = instance_place(x, y, obj_frag);
+    if (_frag != noone)
+    {
+        instance_destroy(_frag);
+    }
+}
+
 //STATE MACHINE
+
+estado_i_lose_control = function()
+{
+    
+}
 
 estado_parado = function()
 {
@@ -510,13 +536,12 @@ estado_dano = function()
 {
     grav_op();
     
-    if (global.vidas <= 1 && morre_uma_vez)
+    if (global.vidas <= 1 && !global.transicao)
     {
         cria_transicao_inicia(room);
         treme_a_tela(10);
-        morre_uma_vez = false;
     }
-    else
+    else if (global.vidas > 1)
     {
         estado = estado_parado;
         global.vidas--;

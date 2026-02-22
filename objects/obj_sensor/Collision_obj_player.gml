@@ -1,0 +1,1 @@
+metodo_generico(other);

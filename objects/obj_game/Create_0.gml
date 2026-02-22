@@ -1,2 +1,2 @@
 //variaveis
-reseta_uma_vez = true;
+passa_uma_vez = true;

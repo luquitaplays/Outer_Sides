@@ -1,6 +1,6 @@
 //variaveis
 
-global.room_atual = 0;
+global.room_atual = rm_reception;
 
 //funçoes
 function end_animation(_num = image_number)
@@ -53,8 +53,7 @@ function salvar_jogo()
     //criando dados
     var _struct =
     {
-        room_atual : global.room_atual,
-        vidas : global.vidas
+        room_atual : global.room_atual
     };
     
     //cria buffer
@@ -90,7 +89,6 @@ function carregar_jogo()
     
     //salvando na variavel
     global.room_atual = _new_stuct.room_atual;
-    global.vidas = _new_stuct.vidas;
     
     //deletando buff
     buffer_delete(_new_buff);

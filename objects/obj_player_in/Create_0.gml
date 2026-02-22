@@ -20,10 +20,10 @@ grav = mc_grav;
 
 max_velv = 12;
 
-morre_uma_vez = true;
-
 max_vidas = 2;
 global.vidas = max_vidas;
+
+image_alpha = 0.3;
 
 invencivel = false;
 espera_invencivel = 60;
@@ -48,7 +48,7 @@ spr_atual = 0;
 //se ele for o player n jogavel
 if (not_playable)
 {
-    sprite_index = spr_player_walk_in;
+    sprite_index = spr;
 }
 else //se ele for o player normal
 {
@@ -266,6 +266,15 @@ invencible_time = function()
             invencivel = false;
             image_alpha = 1;
         }
+    }
+}
+
+pega_frag = function()
+{
+    var _frag = instance_place(x, y, obj_frag);
+    if (_frag != noone)
+    {
+        instance_destroy(_frag);
     }
 }
 
@@ -510,13 +519,13 @@ estado_dano = function()
 {
     grav_op();
     
-    if (global.vidas <= 1 && morre_uma_vez)
+    if (global.vidas <= 1 && !global.transicao)
     {
         cria_transicao_inicia(room);
+        global.transicao = true;
         treme_a_tela(10);
-        morre_uma_vez = false;
     }
-    else
+    else if (global.vidas > 1)
     {
         estado = estado_parado;
         global.vidas--;

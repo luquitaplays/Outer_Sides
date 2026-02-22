@@ -33,6 +33,9 @@
         "-1",
       ],"multiselect":false,"name":"dir","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varType":6,},
     {"$GMObjectProperty":"v2","%Name":"not_playable","filters":[],"listItems":[],"multiselect":false,"name":"not_playable","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
+    {"$GMObjectProperty":"v2","%Name":"spr","filters":[
+        "GMSprite",
+      ],"listItems":[],"multiselect":false,"name":"spr","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"spr_player_walk_in","path":"sprites/spr_player_walk_in/spr_player_walk_in.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"spr_player_walk_in","varType":5,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
