@@ -82,6 +82,7 @@
     {"id":{"name":"obj_game","path":"objects/obj_game/obj_game.yy",},},
     {"id":{"name":"obj_mirror_back","path":"objects/obj_mirror_back/obj_mirror_back.yy",},},
     {"id":{"name":"obj_mirror_front","path":"objects/obj_mirror_front/obj_mirror_front.yy",},},
+    {"id":{"name":"obj_placa_cutcene_2","path":"objects/obj_placa_cutcene_2/obj_placa_cutcene_2.yy",},},
     {"id":{"name":"obj_placa_cutcene","path":"objects/obj_placa_cutcene/obj_placa_cutcene.yy",},},
     {"id":{"name":"obj_placa","path":"objects/obj_placa/obj_placa.yy",},},
     {"id":{"name":"obj_play","path":"objects/obj_play/obj_play.yy",},},
@@ -285,10 +286,10 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"rm_reception","path":"rooms/rm_reception/rm_reception.yy",},},
+    {"roomId":{"name":"rm_cut_cene","path":"rooms/rm_cut_cene/rm_cut_cene.yy",},},
     {"roomId":{"name":"rm_cut_cene_2","path":"rooms/rm_cut_cene_2/rm_cut_cene_2.yy",},},
     {"roomId":{"name":"rm_game","path":"rooms/rm_game/rm_game.yy",},},
-    {"roomId":{"name":"rm_cut_cene","path":"rooms/rm_cut_cene/rm_cut_cene.yy",},},
-    {"roomId":{"name":"rm_reception","path":"rooms/rm_reception/rm_reception.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

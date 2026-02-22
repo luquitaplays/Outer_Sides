@@ -1,3 +1,9 @@
+//alternando tela cheia
+if (keyboard_check_pressed(vk_f11))
+{
+    window_set_fullscreen(!window_get_fullscreen());
+}
+
 //se od jogadores não existirem saia !
 if (!instance_exists(obj_player) || !instance_exists(obj_player_in)) exit;
 
@@ -23,10 +29,4 @@ if (!instance_exists(obj_frag) && !global.transicao && passa_uma_vez && room != 
     global.room_atual = _proxima_room;
     salvar_jogo();
     passa_uma_vez = false;
-}
-
-//alternando tela cheia
-if (keyboard_check_pressed(vk_f11))
-{
-    window_set_fullscreen(!window_get_fullscreen());
 }

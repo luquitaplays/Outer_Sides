@@ -7,9 +7,9 @@ if (_no_botao)
     
     if (_aperta && uma_vez)
     {
-        cria_transicao_inicia(room_next(room));
         carregar_jogo();
         
+        cria_transicao_inicia(global.room_atual);
         uma_vez = false;
     }
 }

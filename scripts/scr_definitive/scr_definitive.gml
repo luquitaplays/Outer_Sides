@@ -1,6 +1,6 @@
 //variaveis
 
-global.room_atual = rm_reception;
+global.room_atual = rm_cut_cene;
 
 //funçoes
 function end_animation(_num = image_number)

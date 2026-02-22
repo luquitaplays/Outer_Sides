@@ -1,4 +1,8 @@
-if (place_meeting(x, y, obj_player))
+timer--;
+
+texto = array[inndice];
+
+if (timer > 0 && pode)
 {
     if (!instance_exists(box))
     {
@@ -35,6 +39,32 @@ else
         box.pode_desenhar = false;
         
         //se o lerp chegou ao "fim" destroi a caixa
-        if (box.y >= box.ystart - 0.1) instance_destroy(box);
+        if (box.y >= box.ystart - 0.1)
+        {
+            instance_destroy(box);
+            timer = espera_timer;
+            if (inndice < array_length(array) - 1)
+            {
+                inndice++
+            }
+            else 
+            {
+                ativa_timer_final = true;
+                pode = false;
+            }
+        }
+    }
+}
+
+if (ativa_timer_final)
+{
+    timer_final--;
+    if (timer_final <= 0)
+    {
+        instance_destroy();
+        with (obj_player) 
+        {
+            cria_transicao_inicia(room_next(room));
+        }
     }
 }
