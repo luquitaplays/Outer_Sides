@@ -21,23 +21,22 @@ grav = mc_grav;
 max_velv = 12;
 
 morre_uma_vez = true;
-reseta_uma_vez = true;
 
-max_vidas = 3
-vidas = max_vidas;
+max_vidas = 2;
+global.vidas = max_vidas;
 
 invencivel = false;
 espera_invencivel = 60;
 timer_invencivel = espera_invencivel;
 
-coyote_limite = 6;
+coyote_limite = 8;
 coyote_timer = coyote_limite;
 
 corner_limite = 6;
 chao = 0;
 teto = 0;
 
-colizions = [obj_chao];
+colizions = [obj_chao, obj_chao_menor];
 colizions_dano = [obj_espinho];
 
 //transicao de sprites
@@ -46,9 +45,17 @@ transicao_pulo_pra_queda = [spr_player_jump_fall, spr_player_fall];
 transicao_atual = transicao_pulo_pra_queda;
 spr_atual = 0;
 
-//iniciando efeitos
-inicia_efeito_mola();
-inicia_efeito_branco();
+//se ele for o player n jogavel
+if (not_playable)
+{
+    sprite_index = spr_player_walk;
+}
+else //se ele for o player normal
+{
+    //iniciando efeitos
+    inicia_efeito_mola();
+    inicia_efeito_branco();
+}
 
 pega_imputs = function()
 {
@@ -213,7 +220,7 @@ aplica_velocidade = function()
 }
 
 //esse função serve apenas para quando trocar a sprite trocar para o começo dela !
-troca_sprite = function(_spr = spr_player)
+troca_sprite = function(_spr = spr_player_idle)
 {
     if (sprite_index != _spr)
     {
@@ -501,19 +508,19 @@ estado_wall_jump = function()
 
 estado_dano = function()
 {
-    troca_sprite(spr_player_wall_jump);
-    
     grav_op();
     
-    if (vidas <= 1 && morre_uma_vez)
+    if (global.vidas <= 1 && morre_uma_vez)
     {
         cria_transicao_inicia(room);
+        treme_a_tela(10);
         morre_uma_vez = false;
     }
     else
     {
         estado = estado_parado;
-        vidas--;
+        global.vidas--;
+        treme_a_tela(10);
         invencivel = true;
     }
 }

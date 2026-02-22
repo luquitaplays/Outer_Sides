@@ -1,3 +1,17 @@
+if (!global.normal)
+{
+    image_speed = 0;
+    image_alpha = lerp(image_alpha, 0.3, 0.1);
+    exit;
+}
+else 
+{
+    image_speed = 1;
+    image_alpha = lerp(image_alpha, 1, 0.1);
+}
+
+if (not_playable) exit;
+
 //pegando imputs
 pega_imputs();
 
@@ -19,14 +33,3 @@ estado();
 //efeitos lerps
 efeito_mola_lerp();
 efeito_branco_lerp();
-
-//reiniciando o jogo
-if (keyboard_check_pressed(ord("R")) && reseta_uma_vez)
-{
-    cria_transicao_inicia();
-    reseta_uma_vez = false;
-}
-
-//alternando tela cheia
-if (keyboard_check_pressed(vk_f11)) window_set_fullscreen(!window_get_fullscreen());
-
