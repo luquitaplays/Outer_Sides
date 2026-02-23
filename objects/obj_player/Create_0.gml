@@ -37,7 +37,7 @@ chao = 0;
 teto = 0;
 
 var _tile = layer_tilemap_get_id("tl_chao");
-colizions = [obj_chao, obj_chao_menor, _tile];
+colizions = [obj_chao, obj_chao_menor, _tile, obj_passagem];
 colizions_dano = [obj_espinho];
 
 //transicao de sprites
