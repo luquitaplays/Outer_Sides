@@ -13,7 +13,7 @@ if (keyboard_check_pressed(vk_tab))
     global.normal = !global.normal;
 }
 
-if (room == rm_cut_cene_2) exit;
+if (room == rm_cut_cene_2 || room == rm_reception) exit;
 
 //reiniciando o jogo
 if (keyboard_check_pressed(ord("R")) && !global.transicao)
@@ -22,7 +22,7 @@ if (keyboard_check_pressed(ord("R")) && !global.transicao)
 }
 
 //passando de fase
-if (!instance_exists(obj_frag) && !global.transicao && passa_uma_vez && room != rm_reception)
+if (!instance_exists(obj_frag_no) && !instance_exists(obj_frag_in) && !global.transicao && passa_uma_vez)
 {
     var _proxima_room = room_next(room);
     cria_transicao_inicia(_proxima_room);

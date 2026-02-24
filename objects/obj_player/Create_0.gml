@@ -37,7 +37,7 @@ chao = 0;
 teto = 0;
 
 var _tile = layer_tilemap_get_id("tl_chao");
-colizions = [obj_chao, obj_chao_menor, _tile, obj_passagem];
+colizions = [obj_chao_all, obj_chao_no, _tile, obj_passagem];
 colizions_dano = [obj_espinho];
 
 //transicao de sprites
@@ -139,6 +139,7 @@ movimento = function()
         if (jump)
         {
             velv = -forca_pulo;
+            audio_play_sound(snd_pulo, 0, false);
         }
     }
     else 
@@ -149,6 +150,7 @@ movimento = function()
             {
                 velv = -forca_pulo + 0.3;
                 velh = 1.8 * -dir;
+                audio_play_sound(snd_pulo, 0, false);
             }
         }
         
@@ -283,10 +285,11 @@ invencible_time = function()
 
 pega_frag = function()
 {
-    var _frag = instance_place(x, y, obj_frag);
+    var _frag = instance_place(x, y, obj_frag_no);
     if (_frag != noone)
     {
         instance_destroy(_frag);
+        audio_play_sound(snd_pickup, 0 ,false);
     }
 }
 
@@ -419,6 +422,7 @@ estado_caindo = function()
         
         estado = estado_pulando;
         efeito_set_mola(0.8, 1.2);
+        audio_play_sound(snd_pulo, 0, false);
         
         coyote_timer = 0;
     }

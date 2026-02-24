@@ -15,3 +15,8 @@ function muda_room_2()
     global.room_atual = rm_final;
     salvar_jogo();
 }
+
+function treme_tela_20()
+{
+    treme_a_tela(20);
+}

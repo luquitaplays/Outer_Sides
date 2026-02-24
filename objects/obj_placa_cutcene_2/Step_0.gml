@@ -2,6 +2,15 @@ timer--;
 
 texto = array[inndice];
 
+if (global.normal)
+{
+    x = 80;
+}
+else 
+{
+    x = 248;
+}
+
 if (timer > 0 && pode)
 {
     if (!instance_exists(box))
@@ -21,6 +30,7 @@ if (timer > 0 && pode)
         box.image_xscale = lerp(box.image_xscale, 10, 0.1);
         box.image_yscale = lerp(box.image_yscale, 5, 0.1);
         box.y = lerp(box.y, box.ystart - 43, 0.1);
+        box.x = x;
         
         //no "fim" do lerp pode desenhar
         if (box.y <= box.ystart - 42) box.pode_desenhar = true;
@@ -34,6 +44,7 @@ else
         box.image_xscale = lerp(box.image_xscale, 0, 0.1);
         box.image_yscale = lerp(box.image_yscale, 0, 0.1);
         box.y = lerp(box.y, box.ystart, 0.1);
+        box.x = x;
         
         //falando pra parar de desenhar
         box.pode_desenhar = false;
@@ -64,7 +75,10 @@ if (ativa_timer_final)
         instance_destroy();
         with (obj_player) 
         {
-            cria_transicao_inicia(room_next(room));
+            var _prox_rm = room_next(room);
+            cria_transicao_inicia(_prox_rm);
+            global.room_atual = _prox_rm;
+            salvar_jogo();
         }
     }
 }

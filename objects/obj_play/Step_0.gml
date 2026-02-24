@@ -7,6 +7,8 @@ if (_no_botao)
     
     if (_aperta && uma_vez)
     {
+        audio_play_sound(snd_boton, 0, false);
+        
         carregar_jogo();
         
         cria_transicao_inicia(global.room_atual);

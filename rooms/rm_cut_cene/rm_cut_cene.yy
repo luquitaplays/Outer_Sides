@@ -1,7 +1,7 @@
 {
   "$GMRoom":"v1",
   "%Name":"rm_cut_cene",
-  "creationCodeFile":"",
+  "creationCodeFile":"rooms/rm_cut_cene/RoomCreationCode.gml",
   "inheritCode":false,
   "inheritCreationOrder":false,
   "inheritLayers":false,
