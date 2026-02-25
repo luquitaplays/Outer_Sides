@@ -15,6 +15,8 @@ subindo = false;
 
 jump = 0;
 forca_pulo = 3.3;
+mc_forca_mola = forca_pulo * 1.6;
+mc_forca_mola_h = forca_pulo * 1.6;
 mc_grav = 0.15;
 grav = mc_grav;
 
@@ -35,6 +37,9 @@ coyote_timer = coyote_limite;
 corner_limite = 6;
 chao = 0;
 teto = 0;
+
+mola = false;
+mola_diagonal = false;
 
 colizions = [obj_chao_all, obj_chao_in];
 colizions_dano = [obj_espinho];
@@ -76,6 +81,9 @@ checa_colizao = function()
     //paredes
     parede_dir = place_meeting(x + 1, y, colizions);
     parede_esq = place_meeting(x - 1, y, colizions);
+    
+    mola = place_meeting(x, y, obj_mola);
+    mola_diagonal = place_meeting(x, y, obj_mola_diagonal);
 }
 
 transicao_de_sprites = function()
@@ -308,6 +316,22 @@ estado_parado = function()
         spr_atual = 0;
     }
     
+    if (mola)
+    {
+        estado = estado_mola;
+        efeito_set_mola(0.8, 1.2);
+        
+        velv = -mc_forca_mola;
+    }
+    
+    if (mola_diagonal)
+    {
+        estado = estado_mola_diagonal;
+        efeito_set_mola(0.8, 1.2);
+        
+        velv = -mc_forca_mola;
+    }
+    
     if (dano && !invencivel)
     {
         estado = estado_dano;
@@ -341,6 +365,22 @@ estado_andando = function()
         estado = estado_caindo;
         
         spr_atual = 0;
+    }
+    
+    if (mola)
+    {
+        estado = estado_mola;
+        efeito_set_mola(0.8, 1.2);
+        
+        velv = -mc_forca_mola;
+    }
+    
+    if (mola_diagonal)
+    {
+        estado = estado_mola_diagonal;
+        efeito_set_mola(0.8, 1.2);
+        
+        velv = -mc_forca_mola;
     }
     
     if (dano && !invencivel)
@@ -423,6 +463,22 @@ estado_caindo = function()
         velh = 1 * -dir;
         efeito_set_branco_cor(c_red);
         efeito_set_branco(image_alpha);
+    }
+    
+    if (mola)
+    {
+        estado = estado_mola;
+        efeito_set_mola(0.8, 1.2);
+        
+        velv = -mc_forca_mola;
+    }
+    
+    if (mola_diagonal)
+    {
+        estado = estado_mola_diagonal;
+        efeito_set_mola(0.8, 1.2);
+        
+        velv = -mc_forca_mola;
     }
     
     if (parede_dir || parede_esq)
@@ -508,6 +564,26 @@ estado_wall_jump = function()
         vel_muda_dir = mc_vel_muda_dir;
     }
     
+    if (mola)
+    {
+        estado = estado_mola;
+        efeito_set_mola(0.8, 1.2);
+        
+        velv = -mc_forca_mola;
+        
+        vel_muda_dir = mc_vel_muda_dir;
+    }
+    
+    if (mola_diagonal)
+    {
+        estado = estado_mola_diagonal;
+        efeito_set_mola(0.8, 1.2);
+        
+        velv = -mc_forca_mola;
+        
+        vel_muda_dir = mc_vel_muda_dir;
+    }
+    
     if (dano && !invencivel)
     {
         estado = estado_dano;
@@ -519,9 +595,129 @@ estado_wall_jump = function()
     }
 }
 
+estado_mola = function()
+{
+    troca_sprite(spr_player_jump_in);
+    
+    movimento();
+    
+    checa_dir();
+    
+    //se eu encostei no teto
+    if (teto)
+    {
+        //uzando o corner_correction
+        corner_correction();
+    }
+    
+    if (velv >= 0)
+    {
+        estado = estado_caindo;
+        
+        spr_atual = 0;
+    }
+    
+    if (dano && !invencivel)
+    {
+        estado = estado_dano;
+        velv = -2;
+        velh = 1 * -dir;
+        efeito_set_branco_cor(c_red);
+        efeito_set_branco(image_alpha);
+    }
+}
+
+estado_mola_diagonal = function()
+{
+    troca_sprite(spr_player_jump_in);
+    
+    movimento();
+    
+    checa_dir();
+    
+    velh = -mc_forca_mola_h;
+    
+    //se eu encostei no teto
+    if (teto)
+    {
+        //uzando o corner_correction
+        corner_correction();
+    }
+    
+    if (velv >= 0)
+    {
+        estado = estado_mola_diagonal_cai;
+        
+        spr_atual = 0;
+    }
+    
+    if (dano && !invencivel)
+    {
+        estado = estado_dano;
+        velv = -2;
+        velh = 1 * -dir;
+        efeito_set_branco_cor(c_red);
+        efeito_set_branco(image_alpha);
+    }
+}
+
+estado_mola_diagonal_cai = function()
+{
+    transicao_de_sprites();
+    
+    movimento();
+    checa_dir();
+    
+    velh = -mc_forca_mola_h;
+    
+    if (chao)
+    {
+        estado = estado_parado;
+        efeito_set_mola(1.2, 0.8);
+    }
+    
+    if (mola)
+    {
+        estado = estado_mola;
+        efeito_set_mola(0.8, 1.2);
+        
+        velv = -mc_forca_mola;
+    }
+    
+    if (mola_diagonal)
+    {
+        estado = estado_mola_diagonal;
+        efeito_set_mola(0.8, 1.2);
+        
+        velv = -mc_forca_mola;
+    }
+    
+    if (dano && !invencivel)
+    {
+        estado = estado_dano;
+        velv = -2;
+        velh = 1 * -dir;
+        efeito_set_branco_cor(c_red);
+        efeito_set_branco(image_alpha);
+    }
+    
+    if ((parede_dir && dir == 1) || (parede_esq && dir == -1))
+    {
+        estado = estado_desliza_parede;
+        velv = 0;
+    }
+}
+
 estado_dano = function()
 {
     grav_op();
+    
+    //se eu encostei no teto
+    if (teto)
+    {
+        //uzando o corner_correction
+        velv = 0;
+    }
     
     if (global.vidas <= 1 && !global.transicao)
     {
