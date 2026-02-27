@@ -112,7 +112,7 @@ coyote_time = function()
     if (!chao) 
     {
         //liga o coyote timer
-        if (coyote_timer > 0) coyote_timer--;
+        coyote_timer--;
     }
     else coyote_timer = coyote_limite; // se eu encostei zera
 }
@@ -281,16 +281,17 @@ estado_parado = function()
         estado = estado_andando;
     }
     
-    if (jump && chao)
-    {
-        estado = estado_pulando;
-        efeito_set_mola(0.8, 1.2);
-    }
-    else if (!chao)
+    if (!chao)
     {
         estado = estado_caindo;
         
         spr_atual = 0;
+    }
+    
+    if (jump)
+    {
+        estado = estado_pulando;
+        efeito_set_mola(0.8, 1.2);
     }
     
     if (mola)
@@ -331,16 +332,24 @@ estado_andando = function()
         estado = estado_parado;
     }
     
-    if (jump && chao)
-    {
-        estado = estado_pulando;
-        efeito_set_mola(0.8, 1.2);
-    }
-    else if (!chao)
+    if (!chao && !jump)
     {
         estado = estado_caindo;
         
         spr_atual = 0;
+    }
+    
+    if (jump)
+    {
+        estado = estado_pulando;
+        efeito_set_mola(0.8, 1.2);
+        
+        //se por algum motivo bugou
+        if (!chao)
+        {
+            velv = -forca_pulo;
+            audio_play_sound(snd_pulo, 0, false);
+        }
     }
     
     if (mola)

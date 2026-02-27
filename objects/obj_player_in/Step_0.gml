@@ -18,11 +18,11 @@ pega_imputs();
 //aplicando velocidades e colizoes
 aplica_velocidade();
 
-//fazendo o timer do coyote
-coyote_time();
-
 //checando as minhas colizoes
 checa_colizao();
+
+//fazendo o timer do coyote
+coyote_time();
 
 //pegando fragmento
 pega_frag();
