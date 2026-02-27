@@ -22,14 +22,7 @@ grav = mc_grav;
 
 max_velv = 12;
 
-max_vidas = 2;
-global.vidas = max_vidas;
-
 global.normal = true;
-
-invencivel = false;
-espera_invencivel = 60;
-timer_invencivel = espera_invencivel;
 
 coyote_limite = 8;
 coyote_timer = coyote_limite;
@@ -43,7 +36,7 @@ mola_diagonal = false;
 
 var _tile = layer_tilemap_get_id("tl_chao");
 colizions = [obj_chao_all, obj_chao_no, _tile, obj_passagem];
-colizions_dano = [obj_espinho];
+colizions_dano = [obj_espinho_no, obj_espinho_all];
 
 //transicao de sprites
 transicao_pulo_pra_queda = [spr_player_jump_fall, spr_player_fall];
@@ -165,9 +158,6 @@ movimento = function()
     	velv += grav;
     }
     
-    var _my_sprite = sprite_width / 2;
-    x = clamp(x, _my_sprite, room_width - _my_sprite);
-    
     //fazendo o meu velver estar abaixo do limite
     velv = clamp(velv, -max_velv, max_velv);
 }
@@ -258,39 +248,6 @@ checa_dir = function()
     else if (velh < 0) dir = -1;
 }
 
-invencible_time = function()
-{
-    if (invencivel)
-    {
-        if (subindo)
-        {
-            image_alpha += 0.04;
-            if (image_alpha >= 1)
-            {
-                subindo = false;
-            }
-        }
-        else
-        {
-            image_alpha -= 0.04;
-            if (image_alpha <= 0.6)
-            {
-                subindo = true;
-            }
-        }
-        
-        
-        timer_invencivel--;
-        
-        if (timer_invencivel <= 0)
-        {
-            timer_invencivel = espera_invencivel;
-            invencivel = false;
-            image_alpha = 1;
-        }
-    }
-}
-
 pega_frag = function()
 {
     var _frag = instance_place(x, y, obj_frag_no);
@@ -324,13 +281,12 @@ estado_parado = function()
         estado = estado_andando;
     }
     
-    if (jump)
+    if (jump && chao)
     {
         estado = estado_pulando;
         efeito_set_mola(0.8, 1.2);
     }
-    
-    if (!chao)
+    else if (!chao)
     {
         estado = estado_caindo;
         
@@ -353,7 +309,7 @@ estado_parado = function()
         velv = -mc_forca_mola;
     }
     
-    if (dano && !invencivel)
+    if (dano)
     {
         estado = estado_dano;
         velv = -2;
@@ -375,13 +331,12 @@ estado_andando = function()
         estado = estado_parado;
     }
     
-    if (jump)
+    if (jump && chao)
     {
         estado = estado_pulando;
         efeito_set_mola(0.8, 1.2);
     }
-    
-    if (!chao)
+    else if (!chao)
     {
         estado = estado_caindo;
         
@@ -404,7 +359,7 @@ estado_andando = function()
         velv = -mc_forca_mola;
     }
     
-    if (dano && !invencivel)
+    if (dano)
     {
         estado = estado_dano;
         velv = -2;
@@ -441,7 +396,7 @@ estado_pulando = function()
         spr_atual = 0;
     }
     
-    if (dano && !invencivel)
+    if (dano)
     {
         estado = estado_dano;
         velv = -2;
@@ -493,7 +448,7 @@ estado_caindo = function()
         velv = -mc_forca_mola;
     }
     
-    if (dano && !invencivel)
+    if (dano)
     {
         estado = estado_dano;
         velv = -2;
@@ -542,7 +497,7 @@ estado_desliza_parede = function()
         grav = mc_grav;
     }
     
-    if (dano && !invencivel)
+    if (dano)
     {
         estado = estado_dano;
         velv = -2;
@@ -604,7 +559,7 @@ estado_wall_jump = function()
         vel_muda_dir = mc_vel_muda_dir;
     }
     
-    if (dano && !invencivel)
+    if (dano)
     {
         estado = estado_dano;
         velv = -2;
@@ -637,7 +592,7 @@ estado_mola = function()
         spr_atual = 0;
     }
     
-    if (dano && !invencivel)
+    if (dano)
     {
         estado = estado_dano;
         velv = -2;
@@ -671,7 +626,7 @@ estado_mola_diagonal = function()
         spr_atual = 0;
     }
     
-    if (dano && !invencivel)
+    if (dano)
     {
         estado = estado_dano;
         velv = -2;
@@ -712,7 +667,7 @@ estado_mola_diagonal_cai = function()
         velv = -mc_forca_mola;
     }
     
-    if (dano && !invencivel)
+    if (dano)
     {
         estado = estado_dano;
         velv = -2;
@@ -730,6 +685,7 @@ estado_mola_diagonal_cai = function()
 
 estado_dano = function()
 {
+    troca_sprite(spr_player_jump);
     grav_op();
     
     //se eu encostei no teto
@@ -739,17 +695,10 @@ estado_dano = function()
         velv = 0;
     }
     
-    if (global.vidas <= 1 && !global.transicao)
+    if (!global.transicao)
     {
         cria_transicao_inicia(room);
         treme_a_tela(10);
-    }
-    else if (global.vidas > 1)
-    {
-        estado = estado_parado;
-        global.vidas--;
-        treme_a_tela(10);
-        invencivel = true;
     }
 }
 

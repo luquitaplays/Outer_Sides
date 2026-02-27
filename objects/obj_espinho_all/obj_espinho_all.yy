@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"obj_espinho",
+  "%Name":"obj_espinho_all",
   "eventList":[],
   "managed":true,
-  "name":"obj_espinho",
+  "name":"obj_espinho_all",
   "overriddenProperties":[],
   "parent":{
     "name":"Objetos",

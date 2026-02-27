@@ -27,12 +27,15 @@ checa_colizao();
 //pegando fragmento
 pega_frag();
 
-//tempo invencivel
-invencible_time();
-
 //maquina de estados
 estado();
 
 //efeitos lerps
 efeito_mola_lerp();
 efeito_branco_lerp();
+
+//se eu estou abaixo da room
+if (y >= 200 && !global.transicao)
+{
+    cria_transicao_inicia(room);
+}

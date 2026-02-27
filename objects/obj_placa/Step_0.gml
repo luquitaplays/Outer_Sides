@@ -1,4 +1,4 @@
-if (place_meeting(x, y, obj_player))
+if (place_meeting(x, y, colizions))
 {
     if (!instance_exists(box))
     {

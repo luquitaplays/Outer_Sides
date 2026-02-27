@@ -19,7 +19,7 @@ else //se n ta colidindo
 }
 
 //se n ta no tab
-if (global.normal)
+if (!global.normal)
 {
     //fica alterado
     image_alpha = lerp(image_alpha, 0.3, 0.1);
