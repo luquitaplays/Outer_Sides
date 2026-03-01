@@ -1,7 +1,7 @@
 if (!global.normal)
 {
     image_speed = 0;
-    image_alpha = lerp(image_alpha, 0.3, 0.1);
+    image_alpha = lerp(image_alpha, global.tab_min, 0.1);
     exit;
 }
 else 

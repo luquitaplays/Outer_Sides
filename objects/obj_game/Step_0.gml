@@ -8,8 +8,10 @@ if (keyboard_check_pressed(vk_f11))
 if (!instance_exists(obj_player) || !instance_exists(obj_player_in)) exit;
 
 //alternando mundos
-if (keyboard_check_pressed(vk_tab))
+if (keyboard_check_pressed(vk_tab) || keyboard_check_pressed(vk_enter))
 {
+    //se algum deles tiverem sufocados n troca
+    if (!obj_player.sufocado && !obj_player_in.sufocado)
     global.normal = !global.normal;
 }
 

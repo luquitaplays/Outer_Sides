@@ -6,7 +6,7 @@ timer = espera_timer;
 timer_final = 30;
 ativa_timer_final = false;
 
-array = ["[wheel][c_blue]Onde é[/wheel][/c] [jitter][rainbow]que eu tô ???", 
+array = ["[wheel][c_lime]Onde é[/wheel][/c] [jitter][rainbow]que eu tô ???", 
  "[wave]Que [c_red]maluquice,[/c] eu tô[/wave] [shake]DENTRO DO ESPELHO !!!",
  "Parece que eu fui [wave]duplicado[/wave] tambem [wobble][c_red]olha:",
  "Ele é o meu [pulse][rainbow]lado invertido[/rainbow] agora",

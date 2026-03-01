@@ -140,7 +140,7 @@
       ],"traits":0,},
     {"$GMTextTrack":"","%Name":"fnt_pixel","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<AssetTextKeyframe>":"","Keyframes":[
           {"$Keyframe<AssetTextKeyframe>":"","Channels":{
-              "0":{"$AssetTextKeyframe":"v1","Alignment":0,"EnableEffects":false,"EnableGlow":false,"EnableOutline":false,"EnableShadow":false,"Id":{"name":"fnt_pixel","path":"fonts/fnt_pixel/fnt_pixel.yy",},"resourceType":"AssetTextKeyframe","resourceVersion":"2.0","Text":"ACABEI !!!! agora \r\nvamos sair daqui\r\n","Wrap":false,},
+              "0":{"$AssetTextKeyframe":"v1","Alignment":0,"EnableEffects":false,"EnableGlow":false,"EnableOutline":false,"EnableShadow":false,"Id":{"name":"fnt_pixel","path":"fonts/fnt_pixel/fnt_pixel.yy",},"resourceType":"AssetTextKeyframe","resourceVersion":"2.0","Text":"TERMINEI !!!! \r\n     agora \r\nvamos sair daqui\r\n","Wrap":false,},
             },"Disabled":false,"id":"2ef16869-6e90-4e69-860f-6119f8dd507b","IsCreationKey":false,"Key":199.0,"Length":174.0,"resourceType":"Keyframe<AssetTextKeyframe>","resourceVersion":"2.0","Stretch":false,},
         ],"resourceType":"KeyframeStore<AssetTextKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"fnt_pixel","resourceType":"GMTextTrack","resourceVersion":"2.0","trackColour":4282943986,"tracks":[
         {"$GMColourTrack":"","%Name":"blend_multiply","builtinName":10,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<ColourKeyframe>":"","Keyframes":[

@@ -22,7 +22,7 @@ else //se n ta colidindo
 if (!global.normal)
 {
     //fica alterado
-    image_alpha = lerp(image_alpha, 0.3, 0.1);
+    image_alpha = lerp(image_alpha, global.tab_min, 0.1);
 }
 else //se ta no tab
 {

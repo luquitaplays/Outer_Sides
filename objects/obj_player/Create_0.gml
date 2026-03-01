@@ -1,5 +1,7 @@
 //variaveis
 
+sufocado = false;
+
 vel = 1;
 velh = 0;
 velv = 0;
@@ -37,6 +39,7 @@ mola_diagonal = false;
 var _tile = layer_tilemap_get_id("tl_chao");
 colizions = [obj_chao_all, obj_chao_no, _tile, obj_passagem];
 colizions_dano = [obj_espinho_no, obj_espinho_all];
+colizions_sufocado = [obj_parede_switch_p1, obj_parede_switch_p2];
 
 //transicao de sprites
 transicao_pulo_pra_queda = [spr_player_jump_fall, spr_player_fall];
@@ -89,6 +92,8 @@ checa_colizao = function()
     
     mola = place_meeting(x, y, obj_mola);
     mola_diagonal = place_meeting(x, y, obj_mola_diagonal);
+    
+    sufocado = place_meeting(x, y, colizions_sufocado);
 }
 
 transicao_de_sprites = function()
@@ -157,6 +162,8 @@ movimento = function()
         
     	velv += grav;
     }
+    
+    if (place_meeting(x, y + velv, colizions)) y = round(y);
     
     //fazendo o meu velver estar abaixo do limite
     velv = clamp(velv, -max_velv, max_velv);
@@ -539,6 +546,8 @@ estado_wall_jump = function()
     {
         estado = estado_desliza_parede;
         velv = 0;
+        
+        vel_muda_dir = mc_vel_muda_dir;
     }
     
     if (chao)
@@ -575,6 +584,7 @@ estado_wall_jump = function()
         velh = 1 * -dir;
         efeito_set_branco_cor(c_red);
         efeito_set_branco(image_alpha);
+        
         vel_muda_dir = mc_vel_muda_dir;
     }
 }

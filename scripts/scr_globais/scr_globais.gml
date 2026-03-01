@@ -2,6 +2,7 @@
 
 global.normal = true;
 global.quebra_espelho = false;
+global.tab_min = 0.2;
 
 function muda_room()
 {

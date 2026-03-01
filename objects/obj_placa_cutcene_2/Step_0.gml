@@ -4,11 +4,11 @@ texto = array[inndice];
 
 if (global.normal)
 {
-    x = 80;
+    x = 64;
 }
 else 
 {
-    x = 248;
+    x = 264;
 }
 
 if (timer > 0 && pode)

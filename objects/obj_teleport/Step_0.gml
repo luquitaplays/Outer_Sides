@@ -10,30 +10,34 @@ if (timer > 0) exit;
 
 if (_p1 != noone && _p2_exists && !ativado)
 {
+    global.normal = !global.normal;
+    
     _p1.x = obj_player_in.x;
     _p1.y = obj_player_in.y;
     
     obj_player_in.x = x;
     obj_player_in.y = y;
     
-    audio_play_sound(snd_troca, 0, false);
+    obj_player_in.coyote_timer = 0;
     
-    global.normal = !global.normal;
+    audio_play_sound(snd_troca, 0, false);
     
     timer = espera_timer;
 }
 
 if (_p2 != noone && _p1_exists && !ativado)
 {
+    global.normal = !global.normal;
+    
     _p2.x = obj_player.x;
     _p2.y = obj_player.y;
     
     obj_player.x = x;
     obj_player.y = y;
     
-    audio_play_sound(snd_troca, 0, false);
+    obj_player.coyote_timer = 0;
     
-    global.normal = !global.normal;
+    audio_play_sound(snd_troca, 0, false);
     
     timer = espera_timer;
 }
